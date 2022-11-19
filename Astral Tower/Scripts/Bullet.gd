@@ -15,4 +15,4 @@ func _physics_process(delta):
 
 
 func _on_Bullet_area_entered(area):
-	queue_free()
+	pass

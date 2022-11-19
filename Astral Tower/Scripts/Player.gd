@@ -35,8 +35,8 @@ func _physics_process(delta):
 	else:
 		$AnimatedSprite.animation = "Jump"
 		
-		
-		shoot()
+		if shoot_timer.is_stopped():
+			shoot()
 		
 
 
@@ -50,6 +50,7 @@ func shoot():
 	var bullet = BULLET.instance()
 	bullet.global_position = $Position2D.global_position
 	get_tree().root.add_child(bullet)
+	
 	shoot_timer.wait_time = interval
 	shoot_timer.start()
 
