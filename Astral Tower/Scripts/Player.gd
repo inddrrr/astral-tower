@@ -7,6 +7,9 @@ export(int) var interval = 0.5
 onready var BULLET = preload("res://Scenes/Bullet.tscn")
 onready var shoot_timer = $Timer
 
+var game_over = false
+var screen_size = OS.get_screen_size()
+
 func _physics_process(delta):
 	var velocity: Vector2
 	
@@ -17,6 +20,13 @@ func _physics_process(delta):
 	var direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	velocity.x = direction * speed
 	
+	if position.y > screen_size.y:
+		queue_free()
+		
+	if position.y < 0:
+		position.y = 0
+	
+	
 	# jump
 	if is_on_floor():
 		$AnimatedSprite.animation = "Idle"
@@ -25,11 +35,9 @@ func _physics_process(delta):
 	else:
 		$AnimatedSprite.animation = "Jump"
 		
+		if shoot_timer.is_stopped():
+			shoot()
 		
-		shoot()
-		shoot_timer.wait_time = interval
-		
-		shoot_timer.start()
 
 
 
@@ -43,5 +51,6 @@ func shoot():
 	bullet.global_position = $Position2D.global_position
 	get_tree().root.add_child(bullet)
 	
-	
-	
+	shoot_timer.wait_time = interval
+	shoot_timer.start()
+

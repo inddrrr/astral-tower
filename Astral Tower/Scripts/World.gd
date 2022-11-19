@@ -1,4 +1,4 @@
 extends Node2D
 
 func _ready():
-	$DummyEnemy.connect("enemy_defeated", $Score/ScoreValue, "on_enemy_killed")
+	$Enemy.connect("enemy_defeated", $Score/ScoreValue, "_on_enemy_killed")

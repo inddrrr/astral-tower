@@ -7,7 +7,6 @@ func _ready():
 	pass
 
 # Called when the node enters the scene tree for the first time.
-func on_enemy_killed():
-	print("killed")
+func _on_enemy_killed():
 	score += 1
 	text = "%s" % score
