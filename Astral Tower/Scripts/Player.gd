@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export(int) var gravity = 25
 export(int) var speed = 40
-export(int) var interval = 0.5
+export(int) var interval = 1
 
 onready var BULLET = preload("res://Scenes/Bullet.tscn")
 onready var shoot_timer = $Timer
@@ -35,8 +35,8 @@ func _physics_process(delta):
 	else:
 		$AnimatedSprite.animation = "Jump"
 		
-		
-		shoot()
+		if shoot_timer.is_stopped():
+			shoot()
 		
 
 
@@ -50,6 +50,7 @@ func shoot():
 	var bullet = BULLET.instance()
 	bullet.global_position = $Position2D.global_position
 	get_tree().root.add_child(bullet)
+	
 	shoot_timer.wait_time = interval
 	shoot_timer.start()
 

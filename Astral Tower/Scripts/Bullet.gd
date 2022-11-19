@@ -1,6 +1,6 @@
 extends Area2D
 
-export(int) var speed = 400
+export(int) var speed = 50
 onready var screen_size = OS.get_screen_size()
 
 
@@ -15,4 +15,4 @@ func _physics_process(delta):
 
 
 func _on_Bullet_area_entered(area):
-	queue_free()
+	pass
