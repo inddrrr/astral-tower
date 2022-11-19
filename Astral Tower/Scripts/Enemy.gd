@@ -1,17 +1,33 @@
 extends Area2D
 
 export(int) var enemy_speed = 10
-signal enemy_defeated
+export(int) var shooting_interval = 3
 
+onready var BULLET = preload("res://Scenes/EnemyBullet.tscn")
+onready var shoot_timer = $Timer
+
+signal enemy_despawned
+
+func _ready():
+	var world = self.get_tree().root.get_node("World")
+	self.connect("enemy_despawned", world, "_on_enemy_despawned")
 
 func _physics_process(delta):
 	$AnimatedSprite.playing = true
 	position.y += Vector2.UP.y * enemy_speed * delta
-
-
-func _on_Enemy_area_entered(area: Area2D):
-	if (area.name.begins_with('@Bullet@')):
-		print("hit")
+	
+	if position.y < -20:
+		self.emit_signal("enemy_despawned")
 		self.queue_free()
-		self.emit_signal("enemy_defeated")
-		area.queue_free()
+	
+	if shoot_timer.is_stopped():
+		shoot()
+
+
+func shoot():
+	var bullet = BULLET.instance()
+	bullet.global_position = Vector2($Position2D.global_position[0], $Position2D.global_position[1]-10)
+	get_tree().root.add_child(bullet)
+	
+	shoot_timer.wait_time = shooting_interval
+	shoot_timer.start()
