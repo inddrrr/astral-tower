@@ -7,10 +7,14 @@ onready var BULLET = preload("res://Scenes/EnemyBullet.tscn")
 onready var shoot_timer = $Timer
 
 signal enemy_despawned
+signal collided_with_player
 
 func _ready():
 	var world = self.get_tree().root.get_node("World")
+	var player = world.get_node("Player")
+	
 	self.connect("enemy_despawned", world, "_on_enemy_despawned")
+	self.connect("collided_with_player", player, "_damaged")
 
 func _physics_process(delta):
 	$AnimatedSprite.playing = true
@@ -31,3 +35,9 @@ func shoot():
 	
 	shoot_timer.wait_time = shooting_interval
 	shoot_timer.start()
+
+
+func _on_Enemy_body_entered(body):
+	if body.name == "Player":
+		self.emit_signal("collided_with_player", 30)
+		self.queue_free()
