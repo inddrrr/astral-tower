@@ -11,7 +11,7 @@ signal collided_with_player
 
 func _ready():
 	var world = self.get_tree().root.get_node("World")
-	var player = world.get_node("Player")
+	var player = self.get_tree().root.get_node("World/Gameplay/Player")
 	
 	self.connect("enemy_despawned", world, "_on_enemy_despawned")
 	self.connect("collided_with_player", player, "_damaged")

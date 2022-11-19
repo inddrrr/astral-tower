@@ -8,10 +8,10 @@ signal update_player_health
 
 func _ready():
 	randomize()
-	$DeathZone.connect("dmg_player", $Player, "_damaged")
-	$DeathZone.connect("body_entered", $DeathZone, "_on_body_entered")
+	$Gameplay/DeathZone.connect("dmg_player", $Gameplay/Player, "_damaged")
+	$Gameplay/DeathZone.connect("body_entered", $Gameplay/DeathZone, "_on_body_entered")
 	
-	$EnemySpawnTimer.start()
+	$Gameplay/EnemySpawnTimer.start()
 	self._update_player_health()
 
 func _process(delta):
@@ -23,7 +23,7 @@ func _on_EnemySpawnTimer_timeout():
 		return
 	
 	var enemy = enemy_scene.instance()
-	var enemy_spawn_location = get_node("EnemySpawner/EnemySpawnLocation")
+	var enemy_spawn_location = get_node("Gameplay/EnemySpawner/EnemySpawnLocation")
 	enemy_spawn_location.offset = randi()
 	
 	enemy.position = enemy_spawn_location.position
@@ -40,5 +40,5 @@ func _on_enemy_despawned():
 	self.enemy_count -= 1
 
 func _update_player_health():
-	if $Player != null:
-		$HUD/Health/HealthValue.set_health($Player.hp, $Player.max_health)
+	if $Gameplay/Player != null:
+		$HUD/Health/HealthValue.set_health($Gameplay/Player.hp, $Gameplay/Player.max_health)
