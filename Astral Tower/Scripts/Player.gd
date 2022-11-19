@@ -1,14 +1,19 @@
 extends KinematicBody2D
 
-export(int) var gravity = 25
-export(int) var speed = 40
+export(int) var gravity = 80
+export(int) var speed = 60
 export(int) var interval = 1
+export(int) var max_health = 100
+
 
 onready var BULLET = preload("res://Scenes/Bullet.tscn")
 onready var shoot_timer = $Timer
 
 var game_over = false
 var screen_size = OS.get_screen_size()
+var hp = max_health
+
+signal dmg_player
 
 func _physics_process(delta):
 	var velocity: Vector2
@@ -22,10 +27,6 @@ func _physics_process(delta):
 	
 	if position.y > screen_size.y:
 		queue_free()
-		
-	if position.y < 0:
-		position.y = 0
-	
 	
 	# jump
 	if is_on_floor():
@@ -37,18 +38,18 @@ func _physics_process(delta):
 		
 		if shoot_timer.is_stopped():
 			shoot()
-		
-
-
-
 	
 	# Apply movement
 	move_and_slide(velocity, Vector2.UP)
-	
+
+func _damaged(dmg: int):
+	self.hp -= dmg
+	if self.hp <= 0:
+		print("GAME OVER")
 
 func shoot():
 	var bullet = BULLET.instance()
-	bullet.global_position = $Position2D.global_position
+	bullet.global_position = Vector2($Position2D.global_position[0], $Position2D.global_position[1]+10)
 	get_tree().root.add_child(bullet)
 	
 	shoot_timer.wait_time = interval

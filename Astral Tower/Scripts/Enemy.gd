@@ -11,7 +11,6 @@ func _physics_process(delta):
 
 func _on_Enemy_area_entered(area: Area2D):
 	if (area.name.begins_with('@Bullet@')):
-		print("hit")
 		self.queue_free()
 		self.emit_signal("enemy_defeated")
 		area.queue_free()
