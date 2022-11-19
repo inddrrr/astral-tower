@@ -6,9 +6,19 @@ export(int) var shooting_interval = 3
 onready var BULLET = preload("res://Scenes/EnemyBullet.tscn")
 onready var shoot_timer = $Timer
 
+signal enemy_despawned
+
+func _ready():
+	var world = self.get_tree().root.get_node("World")
+	self.connect("enemy_despawned", world, "_on_enemy_despawned")
+
 func _physics_process(delta):
 	$AnimatedSprite.playing = true
 	position.y += Vector2.UP.y * enemy_speed * delta
+	
+	if position.y < -20:
+		self.emit_signal("enemy_despawned")
+		self.queue_free()
 	
 	if shoot_timer.is_stopped():
 		shoot()

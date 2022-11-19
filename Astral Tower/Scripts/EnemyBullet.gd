@@ -6,7 +6,6 @@ signal dmg_player
 
 func _ready():
 	var player = self.get_tree().root.get_node("World").get_node("Player")
-	print(player)
 	self.connect("dmg_player", player, "_damaged")
 
 func _physics_process(delta):
