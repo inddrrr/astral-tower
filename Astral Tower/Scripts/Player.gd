@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export(int) var gravity = 25
 export(int) var speed = 40
-export(int) var interval = 0.5
+export(int) var interval = 1
 
 onready var BULLET = preload("res://Scenes/Bullet.tscn")
 onready var shoot_timer = $Timer

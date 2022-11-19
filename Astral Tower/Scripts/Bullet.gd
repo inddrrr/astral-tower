@@ -1,6 +1,6 @@
 extends Area2D
 
-export(int) var speed = 400
+export(int) var speed = 50
 onready var screen_size = OS.get_screen_size()
 
 
