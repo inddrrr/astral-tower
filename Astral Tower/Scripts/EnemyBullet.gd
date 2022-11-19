@@ -5,7 +5,7 @@ export(int) var speed = 80
 signal dmg_player
 
 func _ready():
-	var player = self.get_tree().root.get_node("World/Gameplay/Player")
+	var player = self.get_tree().root.get_node("World/Player")
 	self.connect("dmg_player", player, "_damaged")
 
 func _physics_process(delta):

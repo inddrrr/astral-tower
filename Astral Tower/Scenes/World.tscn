@@ -1,32 +1,26 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Platform.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Gameplay/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Gameplay/Platform.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/DeathZone.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/Score.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Gameplay/Score.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Gameplay/Health.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/World.gd" type="Script" id=7]
-[ext_resource path="res://Scenes/Tutorial.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Gameplay/Tutorial.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1.75, 111 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 49, 10 )
 
 [sub_resource type="Curve2D" id=2]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 124, 192, 0, 0, 0, 0, 195, 192 )
 }
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 49, 10 )
-
 [node name="World" type="Node2D"]
 script = ExtResource( 7 )
-
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 110.0
-margin_right = 210.0
-margin_bottom = 180.0
-color = Color( 0, 0, 0, 1 )
 
 [node name="HUD" type="Node2D" parent="."]
 
@@ -36,38 +30,42 @@ color = Color( 0, 0, 0, 1 )
 
 [node name="Tutorial" parent="." instance=ExtResource( 8 )]
 
-[node name="Gameplay" type="Node2D" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 110.0
+margin_right = 210.0
+margin_bottom = 180.0
+color = Color( 0, 0, 0, 1 )
 
-[node name="Platform" parent="Gameplay" instance=ExtResource( 2 )]
-position = Vector2( 152, 79 )
+[node name="Wall" type="StaticBody2D" parent="."]
 
-[node name="Player" parent="Gameplay" instance=ExtResource( 1 )]
-position = Vector2( 153, 61 )
-
-[node name="Wall" type="StaticBody2D" parent="Gameplay"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay/Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 110, 90 )
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Gameplay/Wall"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Wall"]
 position = Vector2( 210, 90 )
 shape = SubResource( 1 )
 
-[node name="EnemySpawner" type="Path2D" parent="Gameplay"]
-curve = SubResource( 2 )
-
-[node name="EnemySpawnLocation" type="PathFollow2D" parent="Gameplay/EnemySpawner"]
-position = Vector2( 124, 192 )
-
-[node name="EnemySpawnTimer" type="Timer" parent="Gameplay"]
-wait_time = 1.5
-
-[node name="DeathZone" type="Area2D" parent="Gameplay"]
+[node name="DeathZone" type="Area2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Gameplay/DeathZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone"]
 position = Vector2( 160, 184 )
 shape = SubResource( 3 )
 
-[connection signal="timeout" from="Gameplay/EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]
+[node name="EnemySpawner" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="EnemySpawnLocation" type="PathFollow2D" parent="EnemySpawner"]
+position = Vector2( 124, 192 )
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 153, 61 )
+
+[node name="Platform" parent="." instance=ExtResource( 2 )]
+position = Vector2( 152, 79 )
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]

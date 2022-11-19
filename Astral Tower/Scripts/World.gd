@@ -1,5 +1,6 @@
 extends Node2D
-var enemy_scene = preload("res://Scenes/Enemy.tscn")
+var enemy_scene = preload("res://Scenes/Gameplay/Enemy.tscn")
+var game_over_scene = preload("res://Scenes/Gameplay/GameOver.tscn")
 
 var enemy_count: int = 0
 var score: int = 0
@@ -8,10 +9,10 @@ signal update_player_health
 
 func _ready():
 	randomize()
-	$Gameplay/DeathZone.connect("dmg_player", $Gameplay/Player, "_damaged")
-	$Gameplay/DeathZone.connect("body_entered", $Gameplay/DeathZone, "_on_body_entered")
+	$DeathZone.connect("dmg_player", $Player, "_damaged")
+	$DeathZone.connect("body_entered", $DeathZone, "_on_body_entered")
 	
-	$Gameplay/EnemySpawnTimer.start()
+	$EnemySpawnTimer.start()
 	self._update_player_health()
 
 func _process(delta):
@@ -23,7 +24,7 @@ func _on_EnemySpawnTimer_timeout():
 		return
 	
 	var enemy = enemy_scene.instance()
-	var enemy_spawn_location = get_node("Gameplay/EnemySpawner/EnemySpawnLocation")
+	var enemy_spawn_location = get_node("EnemySpawner/EnemySpawnLocation")
 	enemy_spawn_location.offset = randi()
 	
 	enemy.position = enemy_spawn_location.position
@@ -40,5 +41,11 @@ func _on_enemy_despawned():
 	self.enemy_count -= 1
 
 func _update_player_health():
-	if $Gameplay/Player != null:
-		$HUD/Health/HealthValue.set_health($Gameplay/Player.hp, $Gameplay/Player.max_health)
+	if $Player != null:
+		$HUD/Health/HealthValue.set_health($Player.hp, $Player.max_health)
+
+func game_over():
+	var game_over_node = game_over_scene.instance()
+	add_child(game_over_node)
+	get_node("GameOver/MarginContainer/VBoxContainer/ScoreValue").set_score(self.score)
+	get_tree().paused = true
