@@ -32,4 +32,7 @@ animation = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 4 )
 
-[connection signal="area_entered" from="." to="." method="_on_Enemy_area_entered"]
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

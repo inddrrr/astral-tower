@@ -43,9 +43,11 @@ func _physics_process(delta):
 	move_and_slide(velocity, Vector2.UP)
 
 func _damaged(dmg: int):
+	print("taking dmg ", dmg)
 	self.hp -= dmg
 	if self.hp <= 0:
 		print("GAME OVER")
+		self.queue_free()
 
 func shoot():
 	var bullet = BULLET.instance()
