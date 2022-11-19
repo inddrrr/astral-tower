@@ -43,3 +43,5 @@ func shoot():
 	bullet.global_position = $Position2D.global_position
 	get_tree().root.add_child(bullet)
 	
+	
+	
