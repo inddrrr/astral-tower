@@ -34,11 +34,11 @@ func _on_EnemySpawnTimer_timeout():
 func _on_enemy_killed():
 	self._on_enemy_despawned()
 	self.score += 1
-	$Score/ScoreValue.set_score(self.score)
+	$HUD/Score/ScoreValue.set_score(self.score)
 
 func _on_enemy_despawned():
 	self.enemy_count -= 1
 
 func _update_player_health():
 	if $Player != null:
-		$Health/HealthValue.set_health($Player.hp, $Player.max_health)
+		$HUD/Health/HealthValue.set_health($Player.hp, $Player.max_health)
