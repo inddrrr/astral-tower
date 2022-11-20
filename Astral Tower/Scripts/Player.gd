@@ -9,10 +9,14 @@ export(int) var jump_high = -3000
 
 onready var BULLET = preload("res://Scenes/Gameplay/Bullet.tscn")
 onready var shoot_timer = $Timer
+onready var _animated_sprite: Object = $AnimatedSprite
 
 var game_over = false
 var screen_size = OS.get_screen_size()
 var hp = max_health
+var player_state = "Idle"
+var is_currently_damaged = false
+var direction = 1
 
 signal dmg_player
 signal game_over
@@ -22,39 +26,52 @@ var world: Node
 func _ready():
 	self.world = self.get_tree().root.get_node("World")
 	self.connect("game_over", self.world, "game_over")
+	
+
+func _process(delta):
+	if is_currently_damaged:
+		_animated_sprite.play("Damaged")
+		is_currently_damaged = false
+		yield(_animated_sprite, "animation_finished")
+		_animated_sprite.stop()
+		
+	if not(_animated_sprite.animation == "Damaged" and _animated_sprite.playing):
+		_animated_sprite.play(player_state)
+	
+	if direction > 0:
+		if _animated_sprite.flip_h:
+			_animated_sprite.flip_h = false
+	elif direction < 0: 
+		if not _animated_sprite.flip_h:
+			_animated_sprite.flip_h = true
 
 func _physics_process(delta):
-	if self.hp == 0:
-		return
-	
 	var velocity: Vector2
-	
-	# gravity
 	velocity.y += gravity
 	
 	# input direction
-	var direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	velocity.x = direction * speed
 	
 	if position.y > screen_size.y:
 		queue_free()
+		return
 	
-	# jump
 	if is_on_floor():
-		$AnimatedSprite.animation = "Idle"
+		player_state = "Idle"
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = jump_high
+		if direction != 0:
+			player_state = "Run"
 	else:
-		$AnimatedSprite.animation = "Jump"
-		$AnimatedSprite.playing = true
-		
+		player_state = "Jump"
 		if shoot_timer.is_stopped():
 			shoot()
 	
-	# Apply movement
 	move_and_slide(velocity, Vector2.UP)
 
 func _damaged(dmg: int):
+	is_currently_damaged = true
 	self.hp = max(self.hp - dmg, 0)
 	if self.hp == 0:
 		self.emit_signal("game_over")
