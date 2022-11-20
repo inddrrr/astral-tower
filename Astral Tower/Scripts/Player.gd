@@ -12,7 +12,6 @@ onready var shoot_timer = $Timer
 onready var _animated_sprite: Object = $AnimatedSprite
 
 var game_over = false
-var screen_size = OS.get_screen_size()
 var hp = max_health
 var player_state = "Idle"
 var is_currently_damaged = false
@@ -52,10 +51,6 @@ func _physics_process(_delta):
 	# input direction
 	direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	velocity.x = direction * speed
-	
-	if position.y > screen_size.y:
-		queue_free()
-		return
 	
 	if is_on_floor():
 		player_state = "Idle"
