@@ -71,6 +71,6 @@ stream = ExtResource( 8 )
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
-volume_db = -5.0
+volume_db = -15.0
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_EnemySpawnTimer_timeout"]
