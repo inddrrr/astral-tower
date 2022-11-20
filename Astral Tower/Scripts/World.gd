@@ -22,6 +22,8 @@ func _ready():
 
 func _process(_delta):
 	_update_player_health()
+	if $BGM.playing == false:
+		$BGM.play()
 
 func _on_EnemySpawnTimer_timeout():
 	var max_enemy_on_screen = ceil(max(self.score/5.0, 3))
