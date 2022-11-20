@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 export(int) var speed = 75
 
+onready var _animated_sprite: Object = $AnimatedSprite
+
 var screen_size = OS.get_screen_size()
 
 func _physics_process(_delta):
@@ -19,6 +21,13 @@ func _physics_process(_delta):
 	# Apply movement
 	# warning-ignore:return_value_discarded
 	move_and_slide(direction * speed)
+	
+	if direction.x > 0:
+		if _animated_sprite.flip_h:
+			_animated_sprite.flip_h = false
+	elif direction.x < 0: 
+		if not _animated_sprite.flip_h:
+			_animated_sprite.flip_h = true
 	
 	if position.y > screen_size.y:
 		position.y = screen_size.y

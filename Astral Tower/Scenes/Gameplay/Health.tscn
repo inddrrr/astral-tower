@@ -13,20 +13,20 @@ default_font = SubResource( 1 )
 [node name="Health" type="Node2D"]
 
 [node name="HealthLabel" type="Label" parent="."]
-margin_left = 460.0
-margin_top = 15.0
-margin_right = 536.0
-margin_bottom = 38.0
+margin_left = 507.0
+margin_top = 9.0
+margin_right = 583.0
+margin_bottom = 32.0
 theme = SubResource( 2 )
 text = "HP"
 align = 1
 
 [node name="HealthValue" type="Label" parent="."]
-margin_left = 460.0
-margin_top = 39.0
-margin_right = 538.0
-margin_bottom = 66.0
+margin_left = 514.0
+margin_top = 42.0
+margin_right = 576.0
+margin_bottom = 65.0
 theme = SubResource( 2 )
-text = "100 / 100"
+text = "100"
 align = 1
 script = ExtResource( 2 )
