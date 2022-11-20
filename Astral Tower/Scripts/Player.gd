@@ -1,12 +1,13 @@
 extends KinematicBody2D
 
-export(int) var gravity = 80
+export(int) var gravity = 40
 export(int) var speed = 60
 export(int) var interval = 1
 export(int) var max_health = 100
+export(int) var jump_high = -3000
 
 
-onready var BULLET = preload("res://Scenes/Bullet.tscn")
+onready var BULLET = preload("res://Scenes/Gameplay/Bullet.tscn")
 onready var shoot_timer = $Timer
 
 var game_over = false
@@ -14,6 +15,13 @@ var screen_size = OS.get_screen_size()
 var hp = max_health
 
 signal dmg_player
+signal game_over
+
+var world: Node
+
+func _ready():
+	self.world = self.get_tree().root.get_node("World")
+	self.connect("game_over", self.world, "game_over")
 
 func _physics_process(delta):
 	if self.hp == 0:
@@ -35,9 +43,10 @@ func _physics_process(delta):
 	if is_on_floor():
 		$AnimatedSprite.animation = "Idle"
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -2000
+			velocity.y = jump_high
 	else:
 		$AnimatedSprite.animation = "Jump"
+		$AnimatedSprite.playing = true
 		
 		if shoot_timer.is_stopped():
 			shoot()
@@ -48,12 +57,12 @@ func _physics_process(delta):
 func _damaged(dmg: int):
 	self.hp = max(self.hp - dmg, 0)
 	if self.hp == 0:
-		print("GAME OVER")
+		self.emit_signal("game_over")
 
 func shoot():
 	var bullet = BULLET.instance()
 	bullet.global_position = Vector2($Position2D.global_position[0], $Position2D.global_position[1]+10)
-	get_tree().root.add_child(bullet)
+	self.world.add_child(bullet)
 	
 	shoot_timer.wait_time = interval
 	shoot_timer.start()

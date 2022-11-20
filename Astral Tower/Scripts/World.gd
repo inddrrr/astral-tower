@@ -1,5 +1,6 @@
 extends Node2D
-var enemy_scene = preload("res://Scenes/Enemy.tscn")
+var enemy_scene = preload("res://Scenes/Gameplay/Enemy.tscn")
+var game_over_scene = preload("res://Scenes/Gameplay/GameOver.tscn")
 
 var enemy_count: int = 0
 var score: int = 0
@@ -34,11 +35,17 @@ func _on_EnemySpawnTimer_timeout():
 func _on_enemy_killed():
 	self._on_enemy_despawned()
 	self.score += 1
-	$Score/ScoreValue.set_score(self.score)
+	$HUD/Score/ScoreValue.set_score(self.score)
 
 func _on_enemy_despawned():
 	self.enemy_count -= 1
 
 func _update_player_health():
 	if $Player != null:
-		$Health/HealthValue.set_health($Player.hp, $Player.max_health)
+		$HUD/Health/HealthValue.set_health($Player.hp, $Player.max_health)
+
+func game_over():
+	var game_over_node = game_over_scene.instance()
+	add_child(game_over_node)
+	get_node("GameOver/MarginContainer/VBoxContainer/ScoreValue").set_score(self.score)
+	get_tree().paused = true
