@@ -78,15 +78,16 @@ margin_right = 640.0
 margin_bottom = 360.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 50
-custom_constants/margin_top = 10
-custom_constants/margin_left = 50
-custom_constants/margin_bottom = 10
+custom_constants/margin_right = 120
+custom_constants/margin_top = 40
+custom_constants/margin_left = 120
+custom_constants/margin_bottom = 40
 
 [node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
-margin_left = 200.0
-margin_right = 440.0
-margin_bottom = 64.0
+margin_left = 120.0
+margin_top = 40.0
+margin_right = 520.0
+margin_bottom = 78.0
 focus_mode = 0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
