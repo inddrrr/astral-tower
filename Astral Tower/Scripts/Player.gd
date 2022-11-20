@@ -1,9 +1,10 @@
 extends KinematicBody2D
 
-export(int) var gravity = 80
+export(int) var gravity = 40
 export(int) var speed = 60
 export(int) var interval = 1
 export(int) var max_health = 100
+export(int) var jump_high = -3000
 
 
 onready var BULLET = preload("res://Scenes/Gameplay/Bullet.tscn")
@@ -42,9 +43,10 @@ func _physics_process(delta):
 	if is_on_floor():
 		$AnimatedSprite.animation = "Idle"
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -2000
+			velocity.y = jump_high
 	else:
 		$AnimatedSprite.animation = "Jump"
+		$AnimatedSprite.playing = true
 		
 		if shoot_timer.is_stopped():
 			shoot()

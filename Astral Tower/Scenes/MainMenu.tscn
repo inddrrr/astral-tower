@@ -37,13 +37,13 @@ script = ExtResource( 2 )
 main_game_scene = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 320.0
-margin_bottom = 180.0
+margin_right = 640.0
+margin_bottom = 360.0
 color = Color( 0.176471, 0.176471, 0.176471, 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-margin_right = 320.0
-margin_bottom = 219.0
+margin_right = 640.0
+margin_bottom = 360.0
 custom_constants/margin_right = 0
 custom_constants/margin_top = 20
 custom_constants/margin_left = 0
@@ -51,13 +51,14 @@ custom_constants/margin_bottom = 50
 
 [node name="Container" type="VBoxContainer" parent="MarginContainer"]
 margin_top = 20.0
-margin_right = 320.0
-margin_bottom = 169.0
+margin_right = 640.0
+margin_bottom = 310.0
 custom_constants/separation = 11
 
 [node name="Label" type="Label" parent="MarginContainer/Container"]
-margin_right = 320.0
-margin_bottom = 45.0
+margin_top = 22.0
+margin_right = 640.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 theme = SubResource( 7 )
@@ -66,9 +67,9 @@ align = 1
 valign = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Container"]
-margin_top = 56.0
-margin_right = 320.0
-margin_bottom = 117.0
+margin_top = 100.0
+margin_right = 640.0
+margin_bottom = 189.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 75
@@ -76,8 +77,8 @@ custom_constants/margin_top = 40
 
 [node name="PlayButton" type="Button" parent="MarginContainer/Container/MarginContainer"]
 margin_top = 40.0
-margin_right = 245.0
-margin_bottom = 61.0
+margin_right = 565.0
+margin_bottom = 89.0
 focus_mode = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -90,16 +91,16 @@ text = "    Play"
 align = 0
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/Container"]
-margin_top = 128.0
-margin_right = 320.0
-margin_bottom = 149.0
+margin_top = 200.0
+margin_right = 640.0
+margin_bottom = 290.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 75
 
 [node name="AboutUsButton" type="Button" parent="MarginContainer/Container/MarginContainer3"]
-margin_right = 245.0
-margin_bottom = 21.0
+margin_right = 565.0
+margin_bottom = 90.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource( 8 )

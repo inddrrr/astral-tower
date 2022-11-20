@@ -1,26 +1,27 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://Images/enemy.png" type="Texture" id=2]
+[ext_resource path="res://Images/gokumaru.png" type="Texture" id=2]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 160, 32, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 128, 32, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 4, 3 )
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 5.0
+height = 1.0
 
 [node name="Enemy" type="Area2D"]
 script = ExtResource( 1 )
@@ -30,9 +31,11 @@ frames = SubResource( 3 )
 animation = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+position = Vector2( 0, 0.5 )
+shape = SubResource( 7 )
 
 [node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, -5 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
