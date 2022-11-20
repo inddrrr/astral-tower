@@ -6,7 +6,8 @@ signal dmg_player
 
 func _ready():
 	var player = self.get_tree().root.get_node("World/Player")
-	self.connect("dmg_player", player, "_damaged")
+	if self.connect("dmg_player", player, "_damaged") != 0:
+		print("failed connecting EnemyBullet with dmg_player")
 
 func _physics_process(delta):
 	if position.y < 0:

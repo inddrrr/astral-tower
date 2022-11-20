@@ -18,17 +18,17 @@ var player_state = "Idle"
 var is_currently_damaged = false
 var direction = 1
 
-signal dmg_player
 signal game_over
 
 var world: Node
 
 func _ready():
 	self.world = self.get_tree().root.get_node("World")
-	self.connect("game_over", self.world, "game_over")
+	if self.connect("game_over", self.world, "game_over") != 0:
+		print("failed connecting Player to game_over")
 	
 
-func _process(delta):
+func _process(_delta):
 	if is_currently_damaged:
 		_animated_sprite.play("Damaged")
 		is_currently_damaged = false
@@ -45,8 +45,8 @@ func _process(delta):
 		if not _animated_sprite.flip_h:
 			_animated_sprite.flip_h = true
 
-func _physics_process(delta):
-	var velocity: Vector2
+func _physics_process(_delta):
+	var velocity: Vector2 = Vector2()
 	velocity.y += gravity
 	
 	# input direction
@@ -68,6 +68,7 @@ func _physics_process(delta):
 		if shoot_timer.is_stopped():
 			shoot()
 	
+	# warning-ignore:return_value_discarded
 	move_and_slide(velocity, Vector2.UP)
 
 func _damaged(dmg: int):

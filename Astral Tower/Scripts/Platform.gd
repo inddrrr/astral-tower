@@ -4,7 +4,7 @@ export(int) var speed = 75
 
 var screen_size = OS.get_screen_size()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	$AnimatedSprite.playing = true
 	
 	# input direction
@@ -17,6 +17,7 @@ func _physics_process(delta):
 		direction = direction.normalized()
 	
 	# Apply movement
+	# warning-ignore:return_value_discarded
 	move_and_slide(direction * speed)
 	
 	if position.y > screen_size.y:
