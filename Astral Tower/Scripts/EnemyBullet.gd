@@ -8,7 +8,7 @@ func _ready():
 	var player = self.get_tree().root.get_node("World/Player")
 	if self.connect("dmg_player", player, "_damaged") != 0:
 		print("failed connecting EnemyBullet with dmg_player")
-
+	
 func _physics_process(delta):
 	if position.y < 0:
 		queue_free()

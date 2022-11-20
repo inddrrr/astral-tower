@@ -55,6 +55,7 @@ func _physics_process(_delta):
 	if is_on_floor():
 		player_state = "Idle"
 		if Input.is_action_just_pressed("jump"):
+			$PlayerJumpSound.play()
 			velocity.y = jump_high
 		if direction != 0:
 			player_state = "Run"
@@ -67,6 +68,7 @@ func _physics_process(_delta):
 	move_and_slide(velocity, Vector2.UP)
 
 func _damaged(dmg: int):
+	$PlayerHurtSound.play()
 	is_currently_damaged = true
 	self.hp = max(self.hp - dmg, 0)
 	if self.hp == 0:
@@ -76,6 +78,7 @@ func shoot():
 	var bullet = BULLET.instance()
 	bullet.global_position = Vector2($Position2D.global_position[0], $Position2D.global_position[1]+10)
 	self.world.add_child(bullet)
+	$ShootSound.play()
 	
 	shoot_timer.wait_time = interval
 	shoot_timer.start()

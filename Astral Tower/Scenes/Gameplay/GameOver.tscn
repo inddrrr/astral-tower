@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Fonts/Montserrat-Medium.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/GameOver.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/ScoreValue.gd" type="Script" id=3]
+[ext_resource path="res://Audios/game_over_sfx.wav" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -125,6 +126,9 @@ custom_styles/pressed = SubResource( 5 )
 custom_styles/normal = SubResource( 6 )
 enabled_focus_mode = 0
 text = "Restart"
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MarginContainer2/HomeButton" to="." method="_on_HomeButton_button_up"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/MarginContainer/RestartButton" to="." method="_on_RestartButton_button_up"]

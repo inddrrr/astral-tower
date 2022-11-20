@@ -42,6 +42,8 @@ func shoot():
 	bullet.global_position = Vector2($Position2D.global_position[0], $Position2D.global_position[1]-10)
 	self.world.add_child(bullet)
 	
+	$ShootSound.play()
+	
 	shoot_timer.wait_time = shooting_interval
 	shoot_timer.start()
 
