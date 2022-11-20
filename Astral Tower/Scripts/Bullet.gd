@@ -9,7 +9,7 @@ func _ready():
 	var world = self.get_tree().root.get_node("World")
 	if self.connect("enemy_defeated", world, "_on_enemy_killed") != 0:
 		print("failed connecting Bullet to enemy_defeated")
-
+	
 func _physics_process(delta):
 	if position.y > screen_size.y:
 		queue_free()

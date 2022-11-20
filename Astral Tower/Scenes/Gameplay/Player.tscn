@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Images/gokumaru.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://Audios/jump_sfx.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audios/hurt_sfx.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audios/shoot_sfx.wav" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
@@ -87,3 +90,12 @@ position = Vector2( 1, 11 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="PlayerJumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="PlayerHurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )

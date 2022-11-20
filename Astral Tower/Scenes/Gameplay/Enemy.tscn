@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Images/gokumaru.png" type="Texture" id=2]
+[ext_resource path="res://Audios/shoot_sfx.wav" type="AudioStream" id=3]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
@@ -43,5 +44,9 @@ one_shot = true
 [node name="InstantBoostTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+attenuation = 8.87652
 
 [connection signal="body_entered" from="." to="." method="_on_Enemy_body_entered"]

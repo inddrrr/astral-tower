@@ -17,6 +17,8 @@ func _ready():
 	
 	$EnemySpawnTimer.start()
 	self._update_player_health()
+	
+	$NewGameSound.play()
 
 func _process(_delta):
 	_update_player_health()
