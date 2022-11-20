@@ -1,5 +1,6 @@
 extends Area2D
 
+export(int) var base_speed = 10
 export(int) var enemy_speed = 10
 export(int) var shooting_interval = 3
 
@@ -22,6 +23,9 @@ func _ready():
 		print("failed connecting Enemy to collided_with_player")
 
 func _physics_process(delta):
+	if enemy_speed > base_speed and $InstantBoostTimer.is_stopped():
+		enemy_speed = base_speed
+	
 	$AnimatedSprite.playing = true
 	position.y += Vector2.UP.y * enemy_speed * delta
 	
@@ -46,3 +50,7 @@ func _on_Enemy_body_entered(body):
 	if body.name == "Player":
 		self.emit_signal("collided_with_player", 30)
 		self.queue_free()
+
+func instant_boost():
+	self.enemy_speed = self.base_speed*10
+	$InstantBoostTimer.start()
