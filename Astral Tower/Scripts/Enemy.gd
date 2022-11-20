@@ -15,8 +15,11 @@ func _ready():
 	self.world = self.get_tree().root.get_node("World")
 	var player = self.get_tree().root.get_node("World/Player")
 	
-	self.connect("enemy_despawned", self.world, "_on_enemy_despawned")
-	self.connect("collided_with_player", player, "_damaged")
+	if self.connect("enemy_despawned", self.world, "_on_enemy_despawned") != 0:
+		print("failed connecting Enemy to enemy_despawned")
+		
+	if self.connect("collided_with_player", player, "_damaged") != 0:
+		print("failed connecting Enemy to collided_with_player")
 
 func _physics_process(delta):
 	$AnimatedSprite.playing = true

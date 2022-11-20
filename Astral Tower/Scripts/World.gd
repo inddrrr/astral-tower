@@ -5,21 +5,22 @@ var game_over_scene = preload("res://Scenes/Gameplay/GameOver.tscn")
 var enemy_count: int = 0
 var score: int = 0
 
-signal update_player_health
-
 func _ready():
 	randomize()
-	$DeathZone.connect("dmg_player", $Player, "_damaged")
-	$DeathZone.connect("body_entered", $DeathZone, "_on_body_entered")
+	if $DeathZone.connect("dmg_player", $Player, "_damaged") != 0:
+		print("failed connecting DeathZone to dmg_player")
+		
+	if $DeathZone.connect("body_entered", $DeathZone, "_on_body_entered") != 0:
+		print("failed connecting DeathZone to body_entered")
 	
 	$EnemySpawnTimer.start()
 	self._update_player_health()
 
-func _process(delta):
+func _process(_delta):
 	_update_player_health()
 
 func _on_EnemySpawnTimer_timeout():
-	var max_enemy_on_screen = int(max(self.score/5, 10))
+	var max_enemy_on_screen = ceil(max(self.score/5.0, 10))
 	if self.enemy_count >= max_enemy_on_screen:
 		return
 	
@@ -45,6 +46,7 @@ func _update_player_health():
 		$HUD/Health/HealthValue.set_health($Player.hp, $Player.max_health)
 
 func game_over():
+	_update_player_health()
 	var game_over_node = game_over_scene.instance()
 	add_child(game_over_node)
 	get_node("GameOver/MarginContainer/VBoxContainer/ScoreValue").set_score(self.score)
