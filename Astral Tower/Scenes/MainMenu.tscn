@@ -72,12 +72,12 @@ margin_right = 640.0
 margin_bottom = 189.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 75
-custom_constants/margin_top = 40
+custom_constants/margin_right = 400
+custom_constants/margin_top = 60
 
 [node name="PlayButton" type="Button" parent="MarginContainer/Container/MarginContainer"]
-margin_top = 40.0
-margin_right = 565.0
+margin_top = 60.0
+margin_right = 240.0
 margin_bottom = 89.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -96,11 +96,12 @@ margin_right = 640.0
 margin_bottom = 290.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 75
+custom_constants/margin_right = 400
+custom_constants/margin_bottom = 60
 
 [node name="AboutUsButton" type="Button" parent="MarginContainer/Container/MarginContainer3"]
-margin_right = 565.0
-margin_bottom = 90.0
+margin_right = 240.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource( 8 )
